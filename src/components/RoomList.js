@@ -28,24 +28,24 @@ class RoomList extends Component {
        });
      }
 
-     render() {
-       return (
-         <section className="RoomList">
-         <form onSubmit={(e) => this.newRoomSubmit(e)}>
-         <input type="text" value={this.state.newRoomName} onChange={(e) =>this.handleNewRoom(e)}/>
-         <input type="submit"/>
-         </form>
-         <div className="chatrooms">
-         {
-         this.state.rooms.map((room) =>
-         <div>
-         {room.name}
-         </div>
-       )}
-        </div>
-        </section>
-    );
-  }
-}
 
-export default RoomList;
+ render() {
+   return(
+     <section className="roomlist">
+       <form onSubmit={(e) => this.newRoomSubmit(e)}>
+         <input type="text" value={this.state.newRoomName} onChange={(e) => this.handleNewRoom(e)} />
+         <input type="submit" value="Create Chat Room" />
+       </form>
+     <div className="chatrooms">
+     {
+       this.state.rooms.map((room, index) =>
+         <div key={index} onClick={()=>this.props.setActiveRoom(room.key)} className={(this.props.activeRoom === room.key) ? 'active' : ''}>
+           {room.name}
+         </div>
+     )}
+     </div>
+     </section>
+   );
+  }
+ }
+ export default RoomList;

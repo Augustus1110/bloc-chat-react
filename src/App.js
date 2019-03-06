@@ -32,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-        <h1>Bloc Chat! Have something to say?</h1>
+        <h1>Bloc Chat! Got something to say?</h1>
         </header>
         <div>
         <RoomList activeRoom={this.state.activeRoom} setActiveRoom={(room)=>this.setActiveRoom(room)} firebase={firebase} />
