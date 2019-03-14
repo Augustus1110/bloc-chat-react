@@ -1,3 +1,7 @@
+
+# bloc-chat-react
+Bloc Chat App Module 2
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
