@@ -16,7 +16,7 @@ class RoomList extends Component {
 
   newRoomSubmit(e) {
     e.preventDefault();
-    this.roomsRef.push({name: [this.state.newRoomName]});
+    this.roomsRef.push({name: this.state.newRoomName});
     this.setState({newRoomName: ''});
   };
 

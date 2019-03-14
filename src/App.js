@@ -21,24 +21,40 @@ class App extends Component {
     super(props);
     this.state = {
       activeRoom: null,
+      messages: {},
+      roomMessages: [],
+      rooms: [],
     }
+    firebase.database().ref().once("value").then((snapshot) => { // step 1 - get data from db
+      this.state.messages = snapshot.val().Messages;
+      this.state.rooms = snapshot.val().rooms;
+    });
+    this.setActiveRoom = this.setActiveRoom.bind(this); // within constructor, binding method that depends on other methods of component or even the state
   }
 
   setActiveRoom(roomId){
+    var roomMessages = [];
+    for (var message in this.state.messages){
+      if (this.state.messages[message].roomId === roomId) { //this.state.messages[message].roomId - allows me to keep the property name variable because I don't know name of every single message
+        roomMessages.push(this.state.messages[message]);
+      }
+    }
     this.setState({activeRoom: roomId});
+    this.setState({roomMessages: roomMessages});
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <header>
-        <h1>Bloc Chat! Wanna Talk?</h1>
+        <h1>Bloc Chat! Got something to say?</h1>
         </header>
         <div>
         <RoomList activeRoom={this.state.activeRoom} setActiveRoom={(room)=>this.setActiveRoom(room)} firebase={firebase} />
         </div>
         <div>
-        <MessageList activeRoom={this.state.activeRoom} firebase={firebase} />
+        <MessageList messages={this.state.roomMessages} activeRoom={this.state.activeRoom} firebase={firebase} />
         </div>
         </div>
     );
