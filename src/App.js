@@ -4,6 +4,7 @@ import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
+import User from './components/User';
 
   // Initialize Firebase
   var config = {
@@ -24,6 +25,8 @@ class App extends Component {
       messages: {},
       roomMessages: [],
       rooms: [],
+      user: 'Guest'
+
     }
     firebase.database().ref().once("value").then((snapshot) => { // step 1 - get data from db
       this.state.messages = snapshot.val().Messages;
@@ -43,6 +46,12 @@ class App extends Component {
     this.setState({roomMessages: roomMessages});
   }
 
+  setUser(username){
+    this.setState({user: username});
+
+  }
+
+
   render() {
     console.log(this.state);
     return (
@@ -50,6 +59,9 @@ class App extends Component {
         <header>
         <h1>Bloc Chat! Got something to say?</h1>
         </header>
+        <div>
+        <User user={this.state.user} setUser={(username)=>this.setUser(username)} firebase={firebase} />
+        </div>
         <div>
         <RoomList activeRoom={this.state.activeRoom} setActiveRoom={(room)=>this.setActiveRoom(room)} firebase={firebase} />
         </div>
