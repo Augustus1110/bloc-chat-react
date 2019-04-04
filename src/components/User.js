@@ -11,6 +11,7 @@ class User extends Component {
 componentDidMount() {
   this.props.firebase.auth().onAuthStateChanged( user => {
     this.props.setUser(user);
+    console.log(user, "hello")
   });
 }
 
@@ -28,6 +29,7 @@ signOut() {
   render(){
     return(
       <div>
+        <div>{this.props.user ? this.props.user.displayName : "no user logged in"}</div>
         <input type= 'button' value='Sign In' onClick={()=>this.signIn(this)} />
         <br />
         <input type= 'button' value='Sign Out' onClick={()=>this.signOut(this)} />
