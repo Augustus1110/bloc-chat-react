@@ -25,7 +25,7 @@ class App extends Component {
       messages: {},
       roomMessages: [],
       rooms: [],
-      user: 'Guest'
+      user: ''
 
     }
     firebase.database().ref().once("value").then((snapshot) => { // step 1 - get data from db
@@ -56,19 +56,16 @@ class App extends Component {
     console.log(this.state);
     return (
       <div className="App">
-        <header>
+        <div className="w-3-sidebar">
         <h1>Bloc Chat! Got something to say?</h1>
-        </header>
-        <div>
         <User user={this.state.user} setUser={(username)=>this.setUser(username)} firebase={firebase} />
-        </div>
-        <div>
         <RoomList activeRoom={this.state.activeRoom} setActiveRoom={(room)=>this.setActiveRoom(room)} firebase={firebase} />
         </div>
-        <div>
-        <MessageList messages={this.state.roomMessages} activeRoom={this.state.activeRoom} firebase={firebase} />
+        <div className="messageDisplay">
+        <MessageList user={this.state.user} activeRoom={this.state.activeRoom} firebase={firebase} />
         </div>
-        </div>
+      </div>
+
     );
   }
 }
